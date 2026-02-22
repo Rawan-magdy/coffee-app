@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'CoffeeHomeScreen.dart';
 
 class CoffeeOnboardingScreen extends StatelessWidget {
   const CoffeeOnboardingScreen({super.key});
@@ -9,7 +10,6 @@ class CoffeeOnboardingScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-
           Positioned(
             top: 0,
             left: 0,
@@ -20,7 +20,6 @@ class CoffeeOnboardingScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -38,7 +37,6 @@ class CoffeeOnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -76,7 +74,12 @@ class CoffeeOnboardingScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CoffeeHomeScreen()),
+                        );
+                      },
                       child: const Text(
                         "Get Started",
                         style: TextStyle(

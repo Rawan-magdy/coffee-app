@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/first_screen.dart';
+import 'screens/CoffeeOnboardingScreen.dart';
+import 'screens/CoffeeHomeScreen.dart';
 
 void main() {
   runApp(const CoffeeApp());
@@ -10,9 +11,13 @@ class CoffeeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CoffeeOnboardingScreen(),
+      title: 'Coffee App',
+      home: const CoffeeOnboardingScreen(),
+      routes: {
+        '/home': (context) => const CoffeeHomeScreen(),
+      },
     );
   }
 }
