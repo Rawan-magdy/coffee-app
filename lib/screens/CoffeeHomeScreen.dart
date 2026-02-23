@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'CoffeeDetailsScreen.dart';
 
 class CoffeeHomeScreen extends StatelessWidget {
   const CoffeeHomeScreen({super.key});
@@ -140,7 +141,7 @@ class CoffeeHomeScreen extends StatelessWidget {
                   List<String> names = ["Caffe Latte", "Cappuccino", "Machiato", "Flat White", "Americano"];
                   List<String> subNames = ["with Chocolate", "with Oat Milk", "with Caramel", "Deep Foam", "Extra Shot"];
 
-                  return _buildCoffeeCard(names[index], subNames[index], index + 1);
+                  return _buildCoffeeCard(context, names[index], subNames[index], index + 1);
                 },
               ),
             ),
@@ -151,8 +152,6 @@ class CoffeeHomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  
 
   Widget _buildCategoryItem(String title, bool isSelected) {
     return Container(
@@ -172,83 +171,90 @@ class CoffeeHomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCoffeeCard(String name, String subName, int imageNumber) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/images/coffee$imageNumber.jpg',
-                  height: 130,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    color: Colors.brown[200],
-                    height: 130,
-                    child: const Icon(Icons.image_not_supported),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
-                    ),
-                  ),
-                  child: Row(
-                    children: const [
-                      Icon(Icons.star, color: Colors.orange, size: 12),
-                      SizedBox(width: 4),
-                      Text("4.8", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(subName, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text("\$ 4.53", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF2F4B4E))),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFC67C4E),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Icon(Icons.add, color: Colors.white, size: 18),
-                    )
-                  ],
-                )
-              ],
+  Widget _buildCoffeeCard(BuildContext context, String name, String subName, int imageNumber) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CoffeeDetailsScreen(
+              name: name,
+              subName: subName,
+              imagePath: 'assets/images/coffee$imageNumber.jpg',
+              price: "4.53",
             ),
           ),
-        ],
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    'assets/images/coffee$imageNumber.jpg',
+                    height: 130,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.star, color: Colors.orange, size: 12),
+                        SizedBox(width: 4),
+                        Text("4.8", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(subName, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("\$ 4.53", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF2F4B4E))),
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFC67C4E),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.add, color: Colors.white, size: 18),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
